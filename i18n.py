@@ -72,8 +72,8 @@ _STRINGS: dict[str, dict[str, str]] = {
         "stats_cost_per_km": "📊 Вартість кілометра: {cost:.4f} {currency}/км",
         "stats_categories": "📋 По категоріях:",
         "stats_category_line": "  {label}: {amount:.2f} {currency}",
-        "stats_last_eff": "⛽ Остання ефективність: {eff:.2f} км/л ({l100:.1f} л/100км)",
-        "stats_avg_eff": "⛽ Середня ефективність: {eff:.2f} км/л ({l100:.1f} л/100км)",
+        "stats_last_eff": "⛽ З останньої заправки: {eff:.2f} км/л ({l100:.1f} л/100км)",
+        "stats_avg_eff": "⛽ Середній за весь час: {eff:.2f} км/л ({l100:.1f} л/100км)",
         "stats_sheet": "📄 Google Sheet: {url}",
     },
 
@@ -148,8 +148,8 @@ _STRINGS: dict[str, dict[str, str]] = {
         "stats_cost_per_km": "📊 Cost per km: {cost:.4f} {currency}/km",
         "stats_categories": "📋 By category:",
         "stats_category_line": "  {label}: {amount:.2f} {currency}",
-        "stats_last_eff": "⛽ Last efficiency: {eff:.2f} km/L ({l100:.1f} L/100km)",
-        "stats_avg_eff": "⛽ Average efficiency: {eff:.2f} km/L ({l100:.1f} L/100km)",
+        "stats_last_eff": "⛽ Since last fill-up: {eff:.2f} km/L ({l100:.1f} L/100km)",
+        "stats_avg_eff": "⛽ Lifetime average: {eff:.2f} km/L ({l100:.1f} L/100km)",
         "stats_sheet": "📄 Google Sheet: {url}",
     },
 
@@ -224,8 +224,8 @@ _STRINGS: dict[str, dict[str, str]] = {
         "stats_cost_per_km": "📊 Koszt kilometra: {cost:.4f} {currency}/km",
         "stats_categories": "📋 Według kategorii:",
         "stats_category_line": "  {label}: {amount:.2f} {currency}",
-        "stats_last_eff": "⛽ Ostatnia efektywność: {eff:.2f} km/l ({l100:.1f} l/100km)",
-        "stats_avg_eff": "⛽ Średnia efektywność: {eff:.2f} km/l ({l100:.1f} l/100km)",
+        "stats_last_eff": "⛽ Od ostatniego tankowania: {eff:.2f} km/l ({l100:.1f} l/100km)",
+        "stats_avg_eff": "⛽ Średnia za cały okres: {eff:.2f} km/l ({l100:.1f} l/100km)",
         "stats_sheet": "📄 Google Sheet: {url}",
     },
 }
