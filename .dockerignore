@@ -1,0 +1,7 @@
+.env
+credentials.json
+.venv/
+__pycache__/
+*.py[cod]
+.git/
+README*.md

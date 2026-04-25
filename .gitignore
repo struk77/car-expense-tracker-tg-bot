@@ -1,0 +1,12 @@
+# secrets
+.env
+credentials.json
+
+# python
+__pycache__/
+*.py[cod]
+.venv/
+
+# uv
+.python-version
+uv.lock
