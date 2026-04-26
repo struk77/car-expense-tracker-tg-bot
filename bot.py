@@ -3,7 +3,7 @@ from telegram import Update, BotCommand
 from telegram.ext import ApplicationBuilder, TypeHandler, ContextTypes, ApplicationHandlerStop
 
 from config import TELEGRAM_TOKEN, ALLOWED_USER_IDS
-from handlers import setup, fuel, expense, stats
+from handlers import setup, fuel, expense, stats, income
 from i18n import t
 
 logging.basicConfig(
@@ -18,6 +18,7 @@ _COMMANDS = [
     BotCommand("tax",       "🏛 Taxes / fees"),
     BotCommand("parking",   "🅿️ Parking"),
     BotCommand("other",     "💸 Other expenses"),
+    BotCommand("income",    "💵 Income / refund"),
     BotCommand("stats",     "📊 Statistics"),
     BotCommand("setup",     "🚗 Update car info"),
     BotCommand("cancel",    "❌ Cancel"),
@@ -43,6 +44,7 @@ def main() -> None:
     app.add_handler(setup.build_handler())
     app.add_handler(fuel.build_handler())
     app.add_handler(expense.build_handler())
+    app.add_handler(income.build_handler())
     app.add_handler(stats.build_handler())
 
     logging.info("Bot started, allowed users: %s", ALLOWED_USER_IDS)

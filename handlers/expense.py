@@ -8,7 +8,6 @@ from telegram.ext import (
 
 import sheets
 import currency as cur
-from config import CATEGORIES
 from i18n import t
 
 (DESC, AMOUNT, ODO) = range(3)
@@ -16,7 +15,7 @@ from i18n import t
 
 async def _start(update: Update, ctx: ContextTypes.DEFAULT_TYPE, category: str) -> int:
     ctx.user_data["expense_category"] = category
-    await update.message.reply_text(t("ask_desc", label=CATEGORIES[category]))
+    await update.message.reply_text(t("ask_desc", label=t(f"cat_{category}")))
     return DESC
 
 
@@ -91,14 +90,14 @@ async def _save(update: Update, ctx: ContextTypes.DEFAULT_TYPE) -> int:
         "full_tank": "",
         "currency": orig_currency,
         "original_amount": amount,
-        "pln_amount": base_amount,
-        "price_per_liter_pln": "",
+        "base_amount": base_amount,
+        "price_per_liter_base": "",
         "notes": ctx.user_data.get("expense_notes", ""),
         "entered_by": update.effective_user.full_name,
     }
     sheets.add_expense(row)
 
-    label = CATEGORIES[ctx.user_data["expense_category"]]
+    label = t(f"cat_{ctx.user_data['expense_category']}")
     conv_note = f" ({base_amount:.2f} {cur.BASE_CURRENCY})" if orig_currency != cur.BASE_CURRENCY else ""
     await update.message.reply_text(t(
         "expense_saved",

@@ -85,8 +85,8 @@ async def get_amount(update: Update, ctx: ContextTypes.DEFAULT_TYPE) -> int:
         "full_tank": "TRUE" if ctx.user_data["full_tank"] else "FALSE",
         "currency": orig_currency,
         "original_amount": amount,
-        "pln_amount": base_amount,
-        "price_per_liter_pln": price_per_liter,
+        "base_amount": base_amount,
+        "price_per_liter_base": price_per_liter,
         "notes": "",
         "entered_by": update.effective_user.full_name,
     }

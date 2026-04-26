@@ -37,7 +37,7 @@ def _get_or_create_sheet(name: str, headers: list[str]) -> gspread.Worksheet:
 CAR_HEADERS = ["field", "value"]
 EXPENSE_HEADERS = [
     "date", "category", "odometer_km", "liters", "full_tank",
-    "currency", "original_amount", "pln_amount", "price_per_liter_pln", "notes", "entered_by",
+    "currency", "original_amount", "base_amount", "price_per_liter_base", "notes", "entered_by",
 ]
 
 
@@ -72,3 +72,9 @@ def get_all_expenses() -> list[dict]:
 
 def get_fuel_rows() -> list[dict]:
     return [r for r in get_all_expenses() if r.get("category") == "fuel"]
+
+
+def get_latest_odometer() -> float | None:
+    expenses = get_all_expenses()
+    odometers = [float(r["odometer_km"]) for r in expenses if r.get("odometer_km")]
+    return max(odometers) if odometers else None

@@ -1,10 +1,12 @@
+from datetime import date
+
 from telegram import Update
 from telegram.ext import (
     CommandHandler, ConversationHandler, MessageHandler, filters, ContextTypes
 )
 
 import sheets
-from config import BASE_CURRENCY
+import currency as cur
 from i18n import t
 
 (MAKE, MODEL, YEAR, ODO_START, PURCHASE_PRICE, TANK_SIZE) = range(6)
@@ -56,18 +58,21 @@ async def get_odo_start(update: Update, ctx: ContextTypes.DEFAULT_TYPE) -> int:
         await update.message.reply_text(t("err_odo"))
         return ODO_START
     ctx.user_data["odometer_start_km"] = text
-    await update.message.reply_text(t("ask_purchase_price", currency=BASE_CURRENCY))
+    await update.message.reply_text(t("ask_purchase_price", base_currency=cur.BASE_CURRENCY))
     return PURCHASE_PRICE
 
 
 async def get_purchase_price(update: Update, ctx: ContextTypes.DEFAULT_TYPE) -> int:
-    text = update.message.text.strip().replace(" ", "").replace(",", ".")
-    try:
-        float(text)
-    except ValueError:
+    parsed = cur.parse_amount(update.message.text)
+    if parsed is None:
         await update.message.reply_text(t("err_price"))
         return PURCHASE_PRICE
-    ctx.user_data["purchase_price_pln"] = text
+    amount, orig_currency = parsed
+    if orig_currency != cur.BASE_CURRENCY and not await cur.is_valid(orig_currency):
+        await update.message.reply_text(t("err_price"))
+        return PURCHASE_PRICE
+    ctx.user_data["purchase_price"] = str(amount)
+    ctx.user_data["purchase_price_currency"] = orig_currency
     await update.message.reply_text(t("ask_tank_size"))
     return TANK_SIZE
 
@@ -83,7 +88,6 @@ async def get_tank_size(update: Update, ctx: ContextTypes.DEFAULT_TYPE) -> int:
         return TANK_SIZE
 
     ctx.user_data["tank_size_liters"] = text
-    from datetime import date
     ctx.user_data["purchased_on"] = str(date.today())
 
     sheets.save_car_info(ctx.user_data)

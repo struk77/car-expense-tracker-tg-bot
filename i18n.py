@@ -15,6 +15,7 @@ _STRINGS: dict[str, dict[str, str]] = {
             "/tax — податки/збори\n"
             "/parking — паркінг\n"
             "/other — інше\n"
+            "/income — дохід / повернення коштів\n"
             "/stats — статистика\n"
             "/setup — змінити дані авто"
         ),
@@ -24,8 +25,8 @@ _STRINGS: dict[str, dict[str, str]] = {
         "err_year": "Введіть коректний рік (наприклад 2023).",
         "ask_odo_start": "Поточний пробіг при покупці (км)?",
         "err_odo": "Введіть число км, наприклад: 15000",
-        "ask_purchase_price": "Ціна покупки ({currency})?",
-        "err_price": "Введіть суму, наприклад: 85000",
+        "ask_purchase_price": "Ціна покупки? Введіть суму з валютою, наприклад: 153000 або 35000 EUR (за замовчуванням {base_currency})",
+        "err_price": "Введіть суму, наприклад: 85000 або 35000 EUR",
         "ask_tank_size": "Об'єм бака (літри)?",
         "err_tank_size": "Введіть коректний об'єм, наприклад: 55",
         "setup_done": "Збережено! {make} {model}, бак {tank}л.\n\nТепер можна вносити витрати:",
@@ -42,6 +43,14 @@ _STRINGS: dict[str, dict[str, str]] = {
         "label_full": "повний бак",
         "label_partial": "частковий",
         "cat_fuel": "Пальне",
+        "cat_service": "Сервіс/Ремонт",
+        "cat_insurance": "Страховка",
+        "cat_tax": "Податки/Збори",
+        "cat_parking": "Паркінг",
+        "cat_other": "Інше",
+        "cat_income": "Дохід",
+        "ask_income_desc": "Опис доходу? (наприклад: повернення ПДВ, продаж авто)",
+        "income_saved": "Збережено! Дохід {amount} {currency}{conv_note} записано.",
         "fuel_saved": (
             "Збережено!\n"
             "Пробіг: {odo} км\n"
@@ -67,11 +76,12 @@ _STRINGS: dict[str, dict[str, str]] = {
         "stats_no_car": "Спочатку налаштуйте бота: /start",
         "stats_no_expenses": "Витрат ще немає. Починайте з /fuel або /service.",
         "stats_km": "📍 Пробіг: {km:.0f} км (від {start:.0f} до {current:.0f})",
-        "stats_expenses": "💰 Витрати (без купівлі): {total:.2f} {currency}",
-        "stats_total": "💰 Разом з ціною купівлі: {total:.2f} {currency}",
+        "stats_expenses": "💰 Витрати: {total:.2f} {currency} | 30д: {total_30d:.2f} {currency}",
         "stats_cost_per_km": "📊 Вартість кілометра: {cost:.4f} {currency}/км",
+        "stats_cost_per_km_dep": "📊 Вартість кілометра з амортизацією: {cost:.4f} {currency}/км",
         "stats_categories": "📋 По категоріях:",
         "stats_category_line": "  {label}: {amount:.2f} {currency}",
+        "stats_category_line_30d": "  {label}: {amount:.2f} {currency} | 30д: {amount_30d:.2f} {currency}",
         "stats_last_eff": "⛽ З останньої заправки: {eff:.2f} км/л ({l100:.1f} л/100км)",
         "stats_avg_eff": "⛽ Середній за весь час: {eff:.2f} км/л ({l100:.1f} л/100км)",
         "stats_sheet": "📄 Google Sheet: {url}",
@@ -91,6 +101,7 @@ _STRINGS: dict[str, dict[str, str]] = {
             "/tax — taxes/fees\n"
             "/parking — parking\n"
             "/other — other expenses\n"
+            "/income — income / refund\n"
             "/stats — statistics\n"
             "/setup — update car info"
         ),
@@ -100,8 +111,8 @@ _STRINGS: dict[str, dict[str, str]] = {
         "err_year": "Enter a valid year (e.g. 2023).",
         "ask_odo_start": "Odometer at purchase (km)?",
         "err_odo": "Enter a number, e.g.: 15000",
-        "ask_purchase_price": "Purchase price ({currency})?",
-        "err_price": "Enter an amount, e.g.: 85000",
+        "ask_purchase_price": "Purchase price? Enter amount with currency, e.g.: 153000 or 35000 EUR (default {base_currency})",
+        "err_price": "Enter an amount, e.g.: 85000 or 35000 EUR",
         "ask_tank_size": "Tank size (litres)?",
         "err_tank_size": "Enter a valid volume, e.g.: 55",
         "setup_done": "Saved! {make} {model}, tank {tank}L.\n\nYou can now log expenses:",
@@ -118,6 +129,14 @@ _STRINGS: dict[str, dict[str, str]] = {
         "label_full": "full tank",
         "label_partial": "partial",
         "cat_fuel": "Fuel",
+        "cat_service": "Service/Repair",
+        "cat_insurance": "Insurance",
+        "cat_tax": "Taxes/Fees",
+        "cat_parking": "Parking",
+        "cat_other": "Other",
+        "cat_income": "Income",
+        "ask_income_desc": "Description of income? (e.g.: VAT refund, car sale)",
+        "income_saved": "Saved! Income {amount} {currency}{conv_note} recorded.",
         "fuel_saved": (
             "Saved!\n"
             "Odometer: {odo} km\n"
@@ -143,11 +162,12 @@ _STRINGS: dict[str, dict[str, str]] = {
         "stats_no_car": "Set up the bot first: /start",
         "stats_no_expenses": "No expenses yet. Start with /fuel or /service.",
         "stats_km": "📍 Distance: {km:.0f} km (from {start:.0f} to {current:.0f})",
-        "stats_expenses": "💰 Expenses (excl. purchase): {total:.2f} {currency}",
-        "stats_total": "💰 Total incl. purchase price: {total:.2f} {currency}",
+        "stats_expenses": "💰 Expenses: {total:.2f} {currency} | 30d: {total_30d:.2f} {currency}",
         "stats_cost_per_km": "📊 Cost per km: {cost:.4f} {currency}/km",
+        "stats_cost_per_km_dep": "📊 Cost per km incl. depreciation: {cost:.4f} {currency}/km",
         "stats_categories": "📋 By category:",
         "stats_category_line": "  {label}: {amount:.2f} {currency}",
+        "stats_category_line_30d": "  {label}: {amount:.2f} {currency} | 30d: {amount_30d:.2f} {currency}",
         "stats_last_eff": "⛽ Since last fill-up: {eff:.2f} km/L ({l100:.1f} L/100km)",
         "stats_avg_eff": "⛽ Lifetime average: {eff:.2f} km/L ({l100:.1f} L/100km)",
         "stats_sheet": "📄 Google Sheet: {url}",
@@ -167,6 +187,7 @@ _STRINGS: dict[str, dict[str, str]] = {
             "/tax — podatki/opłaty\n"
             "/parking — parking\n"
             "/other — inne wydatki\n"
+            "/income — przychód / zwrot\n"
             "/stats — statystyki\n"
             "/setup — zmień dane auta"
         ),
@@ -176,8 +197,8 @@ _STRINGS: dict[str, dict[str, str]] = {
         "err_year": "Podaj poprawny rok (np. 2023).",
         "ask_odo_start": "Przebieg przy zakupie (km)?",
         "err_odo": "Podaj liczbę km, np.: 15000",
-        "ask_purchase_price": "Cena zakupu ({currency})?",
-        "err_price": "Podaj kwotę, np.: 85000",
+        "ask_purchase_price": "Cena zakupu? Podaj kwotę z walutą, np.: 153000 lub 35000 EUR (domyślnie {base_currency})",
+        "err_price": "Podaj kwotę, np.: 85000 lub 35000 EUR",
         "ask_tank_size": "Pojemność baku (litry)?",
         "err_tank_size": "Podaj poprawną pojemność, np.: 55",
         "setup_done": "Zapisano! {make} {model}, bak {tank}l.\n\nMożesz teraz wprowadzać wydatki:",
@@ -194,6 +215,14 @@ _STRINGS: dict[str, dict[str, str]] = {
         "label_full": "pełny bak",
         "label_partial": "częściowe",
         "cat_fuel": "Paliwo",
+        "cat_service": "Serwis/Naprawa",
+        "cat_insurance": "Ubezpieczenie",
+        "cat_tax": "Podatki/Opłaty",
+        "cat_parking": "Parking",
+        "cat_other": "Inne",
+        "cat_income": "Przychód",
+        "ask_income_desc": "Opis przychodu? (np.: zwrot VAT, sprzedaż auta)",
+        "income_saved": "Zapisano! Przychód {amount} {currency}{conv_note} zapisany.",
         "fuel_saved": (
             "Zapisano!\n"
             "Przebieg: {odo} km\n"
@@ -219,11 +248,12 @@ _STRINGS: dict[str, dict[str, str]] = {
         "stats_no_car": "Najpierw skonfiguruj bota: /start",
         "stats_no_expenses": "Brak wydatków. Zacznij od /fuel lub /service.",
         "stats_km": "📍 Przebieg: {km:.0f} km (od {start:.0f} do {current:.0f})",
-        "stats_expenses": "💰 Wydatki (bez zakupu): {total:.2f} {currency}",
-        "stats_total": "💰 Razem z ceną zakupu: {total:.2f} {currency}",
+        "stats_expenses": "💰 Wydatki: {total:.2f} {currency} | 30д: {total_30d:.2f} {currency}",
         "stats_cost_per_km": "📊 Koszt kilometra: {cost:.4f} {currency}/km",
+        "stats_cost_per_km_dep": "📊 Koszt kilometra z amortyzacją: {cost:.4f} {currency}/km",
         "stats_categories": "📋 Według kategorii:",
         "stats_category_line": "  {label}: {amount:.2f} {currency}",
+        "stats_category_line_30d": "  {label}: {amount:.2f} {currency} | 30д: {amount_30d:.2f} {currency}",
         "stats_last_eff": "⛽ Od ostatniego tankowania: {eff:.2f} km/l ({l100:.1f} l/100km)",
         "stats_avg_eff": "⛽ Średnia za cały okres: {eff:.2f} km/l ({l100:.1f} l/100km)",
         "stats_sheet": "📄 Google Sheet: {url}",
